@@ -6,9 +6,6 @@ define homebrew::tap(
   $ensure = present,
   $source = $title,
 ) {
-  require homebrew
-
-  #ensure_resource('homebrew_tap', $source, { 'ensure' => $ensure })
 
   if $ensure == 'present' {
     exec { "homebrew_tap_${source}":

@@ -53,4 +53,6 @@ class homebrew(
     "${cmddir}/boxen-upgrade.rb":
       source  => 'puppet:///modules/homebrew/boxen-upgrade.rb' ;
   }
+
+  Homebrew::Tap <| |>
 }
