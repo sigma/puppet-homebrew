@@ -8,5 +8,17 @@ define homebrew::tap(
 ) {
   require homebrew
 
-  ensure_resource('homebrew_tap', $source, { 'ensure' => $ensure })
+  #ensure_resource('homebrew_tap', $source, { 'ensure' => $ensure })
+
+  if $ensure == 'present' {
+    exec { "homebrew_tap_${source}":
+      command => "brew tap ${source}",
+      unless  => "brew tap | grep ${source}",
+    }
+  } else {
+    exec { "homebrew_untap_${source}":
+      command => "brew untap ${source}",
+      onlyif  => "brew tap | grep ${source}",
+    }
+  }
 }
