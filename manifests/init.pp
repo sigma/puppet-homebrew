@@ -54,5 +54,4 @@ class homebrew(
       source  => 'puppet:///modules/homebrew/boxen-upgrade.rb' ;
   }
 
-  Homebrew::Tap <| |>
 }
