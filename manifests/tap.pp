@@ -7,6 +7,8 @@ define homebrew::tap(
   $source = $title,
 ) {
 
+  notify {"Tapping ${source} as ${ensure}":}
+
   if $ensure == 'present' {
     exec { "homebrew_tap_${source}":
       command => "brew tap ${source}",
