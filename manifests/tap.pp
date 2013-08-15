@@ -6,26 +6,16 @@ define homebrew::tap(
   $ensure = present,
   $source = $title,
 ) {
-  require homebrew
-
-  notify {"Tapping ${source} as ${ensure}":}
-  $source_with_hyphen = regsubst($source, '\/', '-')
-
-  case $ensure {
-    present: {
-      exec { "brew tap ${source}":
-        creates => "${homebrew::tapsdir}/${source_with_hyphen}"
-      }
+  $find = "brew tap | grep ${source}"
+  if $ensure == 'present' {
+    exec { "homebrew_tap_${source}":
+      command => "brew tap ${source}",
+      unless  => $find,
     }
-
-    absent: {
-      exec { "rm -rf ${homebrew::tapsdir}/${source_with_hyphen}":
-        onlyif => "test -d ${homebrew::tapsdir}/${source_with_hyphen}"
-      }
-    }
-
-    default: {
-      fail('Ensure must be present or absent!')
+  } else {
+    exec { "homebrew_untap_${source}":
+      command => "brew untap ${source}",
+      onlyif  => $find,
     }
   }
 }
