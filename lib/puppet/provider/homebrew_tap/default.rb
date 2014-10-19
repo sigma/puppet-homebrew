@@ -6,7 +6,9 @@ Puppet::Type.type(:homebrew_tap).provide :default do
   include Puppet::Util::Execution
 
   def self.home
-    @home ||= if boxen_home = Facter.value(:boxen_home)
+    @home ||= if boxen_homebrew = Facter.value(:boxen_homebrew)
+      "#{boxen_homebrew}"
+    elsif boxen_home = Facter.value(:boxen_home)
       "#{boxen_home}/homebrew"
     else
       "/usr/local/homebrew"

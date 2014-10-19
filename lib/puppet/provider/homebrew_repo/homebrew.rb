@@ -10,7 +10,9 @@ Puppet::Type.type(:homebrew_repo).provide :homebrew do
   confine :operatingsystem => :darwin
 
   def self.home
-    if boxen_home = Facter.value(:boxen_home)
+    if boxen_homebrew = Facter.value(:boxen_homebrew)
+      "#{boxen_homebrew}"
+    elsif boxen_home = Facter.value(:boxen_home)
       "#{boxen_home}/homebrew"
     else
       raise "The puppet-homebrew module depends on Boxen"
