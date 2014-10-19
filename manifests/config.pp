@@ -8,7 +8,7 @@ class homebrew::config {
   include boxen::config
 
   $cachedir   = "${boxen::config::cachedir}/homebrew"
-  $installdir = "${boxen::config::home}/homebrew"
+  $installdir = "${boxen::config::homebrewdir}"
   $libdir     = "${installdir}/lib"
 
   $cmddir     = "${installdir}/Library/Homebrew/cmd"
